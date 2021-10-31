@@ -39,6 +39,21 @@ impl List {
         }
     }
 
+    fn modify(&mut self, idx: u32, value: u32) {
+        match *self {
+            Cons(ref mut old_value, ref mut tail) => {
+                if idx == 0 {
+                    *old_value = value;
+                } else {
+                    tail.modify(idx - 1, value);
+                }
+            },
+            Nil => {
+                println!("Error");
+            }
+        }
+    }
+
     // Return representation of the list as a (heap allocated) string
     fn stringify(&self) -> String {
         match *self {
@@ -48,7 +63,7 @@ impl List {
                 format!("{}, {}", head, tail.stringify())
             },
             Nil => {
-                format!("Nil")
+                "Nil".to_owned()
             },
         }
     }
@@ -62,6 +77,10 @@ fn main() {
     list = list.prepend(1);
     list = list.prepend(2);
     list = list.prepend(3);
+
+    list.modify(1, 10);
+    list.modify(0, 20);
+    list.modify(10, 100);
 
     // Show the final state of the list
     println!("linked list has length: {}", list.len());
