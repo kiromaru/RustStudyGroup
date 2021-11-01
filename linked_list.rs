@@ -78,11 +78,14 @@ fn main() {
     list = list.prepend(2);
     list = list.prepend(3);
 
+    println!("List before modification, length: {}", list.len());
+    println!("{}", list.stringify());
+
     list.modify(1, 10);
     list.modify(0, 20);
     list.modify(10, 100);
 
     // Show the final state of the list
-    println!("linked list has length: {}", list.len());
+    println!("List after modification, length: {}", list.len());
     println!("{}", list.stringify());
 }
